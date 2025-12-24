@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway - Official Access Point</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .official-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .official-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+
+        .official-link:hover::before {
+            left: 100%;
+        }
+
+        .official-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 40px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .warning h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .warning p {
+            color: #856404;
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon">🔐</div>
+        <h1>Official Gateway</h1>
+        <span class="badge">AUTHENTICATED ACCESS POINT</span>
+
+        <p>
+            Welcome to the official gateway page. This is the authorized entry point to view the protected resource.
+        </p>
+
+        <p>
+            Click the button below to access the exclusive image. This link will only work when accessed from this page.
+        </p>
+
+        <a href="/view-image" class="official-link" target="_blank" id="dynamicLink">
+            Loading link...
+        </a>
+
+        <div style="margin-top: 30px; background: #f8f9fa; padding: 20px; border-radius: 12px;">
+            <label style="display: block; color: #555; font-weight: 600; margin-bottom: 10px;">📋 Copy this link to
+                test:</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="linkToCopy" value="Loading..." readonly
+                    style="flex: 1; padding: 12px; border: 2px solid #667eea; border-radius: 8px; font-family: monospace; font-size: 0.95em;">
+                <button onclick="copyLink()"
+                    style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: transform 0.2s;"
+                    onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    Copy
+                </button>
+            </div>
+            <small style="display: block; margin-top: 10px; color: #666;">
+                💡 Copy this link and paste it in a new tab - it will be DENIED
+            </small>
+        </div>
+
+        <script>
+            // Dynamically set the link based on the current domain/IP
+            document.addEventListener('DOMContentLoaded', () => {
+                const currentOrigin = window.location.origin;
+                const fullLink = `${currentOrigin}/view-image`;
+
+                // Update the click button text
+                const linkElement = document.getElementById('dynamicLink');
+                linkElement.innerText = fullLink;
+
+                // Update the copy input value
+                const inputElement = document.getElementById('linkToCopy');
+                inputElement.value = fullLink;
+            });
+
+            function copyLink() {
+                const input = document.getElementById('linkToCopy');
+                input.select();
+                input.setSelectionRange(0, 99999);
+                document.execCommand('copy');
+
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.style.background = '#28a745';
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                }, 2000);
+            }
+        </script>
+
+        <div class="warning">
+            <h3>⚠️ Security Notice</h3>
+            <p>
+                <strong>Try this experiment:</strong> After opening the image, copy its URL and paste it into a new
+                browser tab.
+                You'll see that direct access is <strong>denied</strong> because you didn't arrive from this gateway
+                page.
+            </p>
+            <p style="margin-top: 10px;">
+                This demonstrates that the link is not just a URL—it's a <em>pathway</em>.
+                Without the proper referrer, access is automatically blocked.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
