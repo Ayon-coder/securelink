@@ -64,7 +64,6 @@ The server will start at `http://127.0.0.1:8000`
 secure_link/
 ├── main.py              # FastAPI backend with referer validation
 ├── gateway.html         # Official gateway page
-├── sydney wifu.jpeg     # Protected image resource
 ├── requirements.txt     # Python dependencies
 └── README.md           # This file
 ```
