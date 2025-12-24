@@ -26,7 +26,9 @@ async def root():
 @app.get("/gateway.html", response_class=HTMLResponse)
 async def gateway():
     """Gateway page with the official link to the protected resource"""
-    with open("gateway.html", "r", encoding="utf-8") as f:
+    # Use absolute path for Vercel/serverless environments
+    file_path = os.path.join(os.path.dirname(__file__), "gateway.html")
+    with open(file_path, "r", encoding="utf-8") as f:
         return HTMLResponse(content=f.read())
 
 @app.get("/view-image")
